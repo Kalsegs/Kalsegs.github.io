@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Monitor | Beatra</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="bg.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo-area">
+                <div class="status-indicator" id="global-status-dot"></div>
+                <h1>BOT<span>MONITOR</span></h1>
+            </div>
+            <div class="header-actions">
+                <button class="btn-action restart" id="btn-restart" title="Restart Bot">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 12c0-4.4 3.6-8 8-8 3.3 0 6.1 2 7.3 4.9M22 12c0 4.4-3.6 8-8 8-3.3 0-6.1-2-7.3-4.9"></path></svg>
+                </button>
+                <button class="btn-action logs" id="btn-logs" title="View Logs">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </button>
+                <div class="config-toggle" id="open-config">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="stats-grid">
+                <div class="stat-card glass">
+                    <div class="stat-label">Total Servers</div>
+                    <div class="stat-value" id="total-guilds">--</div>
+                    <div class="stat-icon servers"></div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-label">Active Players</div>
+                    <div class="stat-value" id="total-players">--</div>
+                    <div class="stat-icon players"></div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-label">Total Users</div>
+                    <div class="stat-value" id="total-users">--</div>
+                    <div class="stat-icon users"></div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-label">RAM Usage</div>
+                    <div class="stat-value" id="total-memory">-- MB</div>
+                    <div class="stat-icon memory"></div>
+                </div>
+            </div>
+
+            <div class="shard-section">
+                <div class="section-header">
+                    <h2>Shard Status</h2>
+                    <div class="shard-count" id="shard-count">0 Shards</div>
+                </div>
+                <div class="shard-grid" id="shard-container">
+                    <!-- Shards will be injected here -->
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="uptime-area">
+                Uptime: <span id="process-uptime">--:--:--</span>
+            </div>
+            <div class="last-updated">
+                Last Sync: <span id="last-sync">Never</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Configuration Modal -->
+    <div class="modal-overlay" id="config-modal">
+        <div class="modal glass">
+            <h2>Connection Settings</h2>
+            <div class="input-group">
+                <label>VPS Endpoint URL</label>
+                <input type="text" id="vps-url" placeholder="http://1.2.3.4:3000 or http://[ipv6]:3000">
+                <small>Protocol (http) and Port are required. For IPv6, use [brackets].</small>
+            </div>
+            <div class="input-group">
+                <label>Monitoring API Key</label>
+                <input type="password" id="api-key" placeholder="Enter your secret key">
+            </div>
+            <div class="modal-actions">
+                <button id="save-config" class="btn primary">Save Configuration</button>
+                <button id="close-config" class="btn secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logs Modal -->
+    <div class="modal-overlay" id="logs-modal">
+        <div class="modal glass logs-modal">
+            <div class="modal-header">
+                <h2>Bot Logs (PM2)</h2>
+                <button id="refresh-logs" class="btn-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                </button>
+            </div>
+            <div class="logs-container" id="logs-content">
+                <pre>Loading logs...</pre>
+            </div>
+            <div class="modal-actions">
+                <button id="close-logs" class="btn secondary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

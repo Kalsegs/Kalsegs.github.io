@@ -1,0 +1,429 @@
+:root {
+    --primary: #6366f1;
+    --secondary: #a855f7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --bg: #0f172a;
+    --text: #f8fafc;
+    --text-dim: #94a3b8;
+    --glass: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --font-main: 'Outfit', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Video Background */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+}
+
+#bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6) blur(2px); 
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.8) 100%);
+    z-index: -1;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--danger);
+    box-shadow: 0 0 10px var(--danger);
+    transition: all 0.3s ease;
+}
+
+.status-indicator.online {
+    background: var(--success);
+    box-shadow: 0 0 15px var(--success);
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+h1 span {
+    font-weight: 300;
+    color: var(--primary);
+}
+
+.config-toggle {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    color: var(--text-dim);
+}
+
+.config-toggle:hover {
+    background: var(--glass-border);
+    color: var(--text);
+    transform: rotate(45deg);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.btn-action {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: var(--text-dim);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-action:hover {
+    background: var(--glass-border);
+    color: var(--text);
+    transform: translateY(-2px);
+}
+
+.btn-action.restart:hover {
+    color: var(--warning);
+    border-color: rgba(245, 158, 11, 0.4);
+}
+
+.btn-action.logs:hover {
+    color: var(--primary);
+    border-color: rgba(99, 102, 241, 0.4);
+}
+
+/* Logs Modal Specific */
+.logs-modal {
+    max-width: 900px !important;
+    width: 90vw !important;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.logs-container {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 1rem;
+    height: 400px;
+    overflow-y: auto;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    line-height: 1.4;
+    border: 1px solid var(--glass-border);
+    margin-bottom: 1.5rem;
+}
+
+.logs-container pre {
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: #cbd5e1;
+}
+
+.btn-icon {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-icon:hover {
+    background: var(--glass-border);
+    color: var(--text);
+    transform: rotate(90deg);
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.glass {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.stat-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+}
+
+/* Shard Section */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.shard-count {
+    font-size: 0.875rem;
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.shard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.shard-card {
+    padding: 1rem;
+}
+
+.shard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.shard-id {
+    font-weight: 700;
+    font-family: var(--font-mono);
+}
+
+.shard-badge {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
+
+.shard-badge.online { color: var(--success); background: rgba(34, 197, 94, 0.1); }
+.shard-badge.offline { color: var(--danger); background: rgba(239, 68, 68, 0.1); }
+
+.shard-metrics {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.shard-metric-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.shard-metric-value {
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+    padding: 2rem 0;
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: var(--text-dim);
+}
+
+/* Modals */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    width: 100%;
+    max-width: 500px;
+    padding: 2.5rem;
+}
+
+.modal h2 {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-dim);
+}
+
+input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: white;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    flex: 1;
+    padding: 0.75rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn.primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn.primary:hover {
+    background: #4f46e5;
+    transform: scale(1.02);
+}
+
+.btn.secondary {
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid var(--glass-border);
+}
+
+.btn.secondary:hover {
+    background: var(--glass-border);
+    color: var(--text);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container { padding: 1rem; }
+    h1 { font-size: 1.25rem; }
+    .stat-value { font-size: 2rem; }
+}
